@@ -1,4 +1,4 @@
-{-# LANGUAGE MultiParamTypeClasses, FunctionalDependencies, FlexibleInstances, UndecidableInstances #-}
+{-# LANGUAGE TypeFamilies, FlexibleInstances, UndecidableInstances #-}
 -----------------------------------------------------------------------------
 -- |
 -- Module      :  Control.Monad.ST.Class
@@ -7,7 +7,7 @@
 --
 -- Maintainer  :  Edward Kmett <ekmett@gmail.com>
 -- Stability   :  experimental
--- Portability :  MPTCs, fundeps
+-- Portability :  type families
 --
 ----------------------------------------------------------------------------
 module Control.Monad.ST.Class (MonadST(..)) where
@@ -15,14 +15,18 @@ module Control.Monad.ST.Class (MonadST(..)) where
 import Control.Monad.Trans.Class
 import Control.Monad.ST
 
-class Monad m => MonadST s m | m -> s where
-  liftST :: ST s a -> m a
+class Monad m => MonadST m where
+  type World m :: *
+  liftST :: ST (World m) a -> m a
   
-instance MonadST RealWorld IO where
+instance MonadST IO where
+  type World IO = RealWorld
   liftST = stToIO
 
-instance MonadST s (ST s) where
+instance MonadST (ST s) where
+  type World (ST s) = s
   liftST = id
 
-instance (MonadTrans t, MonadST s m, Monad (t m)) => MonadST s (t m) where
+instance (MonadTrans t, MonadST m, Monad (t m)) => MonadST (t m) where
+  type World (t m) = World m
   liftST = lift . liftST
