@@ -1,6 +1,6 @@
 name:          monad-st
 category:      Control, Monads
-version:       0.2.0.1
+version:       0.2.0.2
 license:       BSD3
 cabal-version: >= 1.6
 license-file:  LICENSE
@@ -18,6 +18,11 @@ source-repository head
   location: git://github.com/ekmett/monad-st.git
 
 library
+  other-extensions:
+    TypeFamilies
+    FlexibleInstances
+    UndecidableInstances
+
   build-depends: 
     base >= 4 && < 5,
     transformers >= 0.2.0 && <= 0.3
