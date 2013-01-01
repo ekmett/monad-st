@@ -1,4 +1,4 @@
-{-# LANGUAGE TypeFamilies, FlexibleInstances, UndecidableInstances #-}
+{-# LANGUAGE CPP, TypeFamilies, FlexibleInstances, UndecidableInstances #-}
 -----------------------------------------------------------------------------
 -- |
 -- Module      :  Control.Monad.ST.Class
@@ -13,12 +13,16 @@
 module Control.Monad.ST.Class (MonadST(..)) where
 
 import Control.Monad.Trans.Class
+#ifdef MIN_VERSION_base(4,4,0)
+import Control.Monad.ST.Safe
+#else
 import Control.Monad.ST
+#endif
 
 class Monad m => MonadST m where
   type World m :: *
   liftST :: ST (World m) a -> m a
-  
+
 instance MonadST IO where
   type World IO = RealWorld
   liftST = stToIO
