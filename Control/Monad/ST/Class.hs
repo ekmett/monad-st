@@ -13,7 +13,7 @@
 module Control.Monad.ST.Class (MonadST(..)) where
 
 import Control.Monad.Trans.Class
-#ifdef MIN_VERSION_base(4,4,0)
+#if MIN_VERSION_base(4,4,0)
 import Control.Monad.ST.Safe
 #else
 import Control.Monad.ST
