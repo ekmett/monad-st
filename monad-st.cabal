@@ -1,6 +1,6 @@
 name:          monad-st
 category:      Control, Monads
-version:       0.2.4
+version:       0.2.4.1
 license:       BSD3
 cabal-version: >= 1.6
 license-file:  LICENSE
