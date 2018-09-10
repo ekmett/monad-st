@@ -1,6 +1,6 @@
 name:          monad-st
 category:      Control, Monads
-version:       0.2.4.1
+version:       0.2.4.2
 license:       BSD3
 cabal-version: >= 1.6
 license-file:  LICENSE
@@ -31,5 +31,6 @@ library
 
   exposed-modules:
     Control.Monad.ST.Class
+    Control.Monad.ST.Lifted
 
   ghc-options:      -Wall

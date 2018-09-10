@@ -13,7 +13,10 @@
 module Control.Monad.ST.Class (MonadST(..)) where
 
 import Control.Monad.Trans.Class
-#if MIN_VERSION_base(4,4,0)
+#if MIN_VERSION_base(4,8,0)
+-- "Safe is now the default, please use Control.Monad.ST instead"
+import Control.Monad.ST
+#elif MIN_VERSION_base(4,4,0)
 import Control.Monad.ST.Safe
 #else
 import Control.Monad.ST
